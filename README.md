@@ -1,0 +1,1 @@
+This project uses the [Material Design Lite](https://getmdl.io) CSS framework.
