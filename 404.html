@@ -24,12 +24,54 @@
   <meta name="description" content="Discover movies to watch, create shared watchlists with your friends, and more!">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
   <title>Movie Pal</title>
+  <script>
+
+    loadFile(getPrefix() + "styles.css", "css");
+
+    function getPrefix() {
+
+        const currentUrl = window.location.href;
+
+        const urlParts = currentUrl.split("/");
+        var currentIndex = urlParts.length - 1;
+        var dotsToAdd = 0;
+        while (urlParts[currentIndex--] != "moviepal") {
+            dotsToAdd++;
+        }
+
+        dotsToAdd--;
+        var cssUrl = "";
+        for (var i = 0; i < dotsToAdd; ++i) {
+            cssUrl += "../";
+        }
+
+        return cssUrl;
+    }
+
+    function loadFile(filename, filetype) {
+
+        if (filetype == "js") { //if filename is a external JavaScript file
+            var fileref = document.createElement('script');
+            fileref.setAttribute("type", "text/javascript");
+            fileref.setAttribute("src", filename);
+        }
+        else if (filetype == "css") { //if filename is an external CSS file
+            var fileref = document.createElement("link");
+            fileref.setAttribute("rel", "stylesheet");
+            fileref.setAttribute("type", "text/css");
+            fileref.setAttribute("href", filename);
+        }
+
+        if (typeof fileref != "undefined") {
+            document.getElementsByTagName("head")[0].appendChild(fileref);
+        }
+    }
+  </script>
 
   <!-- Page styles -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.min.css">
-  <link rel="stylesheet" href="../../styles.css">
   <style>
     #view-source {
       position: fixed;
@@ -48,7 +90,7 @@
     <div class="android-header mdl-layout__header mdl-layout__header--waterfall">
       <div class="mdl-layout__header-row">
         <span class="android-title mdl-layout-title">
-          <img class="android-logo-image" src="../../images/movie-pal-logo.png">
+          <img id="moviePalLogo1" class="android-logo-image">
         </span>
         <span class="mdl-navigation__link mdl-typography--text-uppercase">Movie Pal for Android</span>
         <!-- Add spacer, to align navigation to the right in desktop -->
@@ -60,7 +102,7 @@
           </nav>
         </div>
         <span class="android-mobile-title mdl-layout-title">
-          <img class="android-logo-image" src="../../images/movie-pal-logo.png">
+          <img id="moviePalLogo2" class="android-logo-image">
         </span>
       </div>
     </div>
@@ -71,7 +113,7 @@
         <div class="logo-font android-sub-slogan">Please install the app and open the link with it.</div>
         <div style="margin-top: 30px">
           <a href="https://play.google.com/store/apps/details?id=greenbits.moviepal" target="_blank">
-            <img src="../../images/get_it_on_google_play.png" width="15%" height="15%" alt="Get in on Google Play"/>
+            <img id="get_it_on_google_play" width="15%" height="15%" alt="Get in on Google Play"/>
           </a>
         </div>
       </div>
@@ -80,13 +122,13 @@
           <div class="mdl-mega-footer--left-section">
             <button class="mdl-mega-footer--social-btn" title="Facebook">
               <a href="https://www.facebook.com/greenbits.moviepal" target="_blank">
-                <img src="../../images/fb_icon.png" width="36px" height="36px">
+                <img id="fbIcon" width="36px" height="36px">
               </a>
             </button>
             &nbsp;
             <button class="mdl-mega-footer--social-btn" title="Patreon">
               <a href="https://www.patreon.com/moviepal" target="_blank">
-                <img src="../../images/patreon_icon.png" width="36px" height="36px">
+                <img id="patreonIcon" width="36px" height="36px">
               </a>
             </button>
           </div>
@@ -97,7 +139,7 @@
         </div>
 
         <div class="mdl-mega-footer--bottom-section">
-          <a class="android-link mdl-typography--font-light" href="../../privacy_policy.html">Privacy Policy</a>
+          <a id="privacyPolicy" class="android-link mdl-typography--font-light">Privacy Policy</a>
         </div>
 
       </footer>
@@ -107,6 +149,40 @@
     Get the app
   </a>
   <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+  <script>
+
+    setImageSrc("moviePalLogo1", "images/movie-pal-logo.png");
+    setImageSrc("moviePalLogo2", "images/movie-pal-logo.png");
+    setImageSrc("get_it_on_google_play", "images/get_it_on_google_play.png");
+    setImageSrc("fbIcon", "images/fb_icon.png");
+    setImageSrc("patreonIcon", "images/patreon_icon.png");
+
+    document.getElementById("privacyPolicy").href = getPrefix() + "privacy_policy.html";
+
+    function setImageSrc(id, src) {
+        document.getElementById(id).src = getPrefix() + src;
+    }
+
+      function getPrefix() {
+
+        const currentUrl = window.location.href;
+
+        const urlParts = currentUrl.split("/");
+        var currentIndex = urlParts.length - 1;
+        var dotsToAdd = 0;
+        while (urlParts[currentIndex--] != "moviepal") {
+            dotsToAdd++;
+        }
+
+        dotsToAdd--;
+        var cssUrl = "";
+        for (var i = 0; i < dotsToAdd; ++i) {
+            cssUrl += "../";
+        }
+
+        return cssUrl;
+    }
+  </script>
 </body>
 
 </html>
